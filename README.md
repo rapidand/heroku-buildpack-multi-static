@@ -1,18 +1,19 @@
 # Heroku Multi Procfile buildpack
 
-Imagine you have a single code base, which has a few different applications within it... or at least the ability to run a few different applications. Or, maybe you're Google with your mono repo?
+_tl;dr_ -- The idea here is that you have a single git repository, but multiple Heroku apps. In other words, you want to share a single git repository to power multiple Heroku apps. So, for each app you need this buildpack, and for each app, you need to set a config variable named PROCFILE to the location where the procfile is for that app. As an example:
 
-In any case, how do you manage this on Heroku? You don't. Heroku applications assume one repo to one application. 
+```
+$ heroku create -a example-1
+$ heroku create -a example-2
+$ heroku buildpacks:add -a example-1 https://github.com/heroku/heroku-buildpack-multi-procfile
+$ heroku buildpacks:add -a example-2 https://github.com/heroku/heroku-buildpack-multi-procfile
+$ heroku config:set -a example-1 PROCFILE=Procfile
+$ heroku config:set -a example-2 PROCFILE=backend/Procfile
+$ git push https://git.heroku.com/example-1 HEAD:master
+$ git push https://git.heroku.com/example-2 HEAD:master
+```
 
-Enter the Multi Procfile buildpack, where every app gets a Procfile!
-
-# Usage
-
-1. Write a bunch of Procfiles and scatter them through out your code base.
-2. Create a bunch of Heroku apps.
-3. For each app, set `PROCFILE=relative/path/to/Procfile/in/your/codebase`, and of course:
-   `heroku buildpacks:add -a <app> https://github.com/heroku/heroku-buildpack-multi-procfile`
-4. For each app, `git push git@heroku.com:<app> master`
+When example-1 builds, it'll copy Procfile into /app/Procfile, and when example-2 builds, it'll copy backend/Procfile to /app/Procfile. For example-2, the process types available for you to scale up will be the ones referenced (originally) in backend/Procfile, or, based on your example api: node backend/server.
 
 # Authors
 
