@@ -13,7 +13,7 @@ $ git push https://git.heroku.com/example-1 HEAD:master
 $ git push https://git.heroku.com/example-2 HEAD:master
 ```
 
-When example-1 builds, it'll copy Procfile into /app/Procfile, and when example-2 builds, it'll copy backend/Procfile to /app/Procfile. For example-2, the process types available for you to scale up will be the ones referenced (originally) in backend/Procfile, or, based on your example api: node backend/server.
+When example-1 builds, it'll copy Procfile into /app/Procfile, and when example-2 builds, it'll copy backend/Procfile to /app/Procfile. For example-2, the process types available for you to scale up will be the ones referenced (originally) in backend/Procfile.
 
 # Authors
 
