@@ -9,8 +9,8 @@ $ heroku buildpacks:add -a example-1 https://github.com/heroku/heroku-buildpack-
 $ heroku buildpacks:add -a example-2 https://github.com/heroku/heroku-buildpack-multi-procfile
 $ heroku config:set -a example-1 PROCFILE=Procfile
 $ heroku config:set -a example-2 PROCFILE=backend/Procfile
-$ git push https://git.heroku.com/example-1 HEAD:master
-$ git push https://git.heroku.com/example-2 HEAD:master
+$ git push https://git.heroku.com/example-1.git HEAD:master
+$ git push https://git.heroku.com/example-2.git HEAD:master
 ```
 
 When example-1 builds, it'll copy Procfile into /app/Procfile, and when example-2 builds, it'll copy backend/Procfile to /app/Procfile. For example-2, the process types available for you to scale up will be the ones referenced (originally) in backend/Procfile.
