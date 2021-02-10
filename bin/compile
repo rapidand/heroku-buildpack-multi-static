@@ -8,7 +8,10 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-PROCFILE=$(cat "${ENV_DIR}/PROCFILE")
+PROCFILE=""
+if [ -r "${ENV_DIR}/PROCFILE" ]; then
+    PROCFILE=$(< "${ENV_DIR}/PROCFILE")
+fi
 
 if [ -z "$PROCFILE" ]; then
     echo "PROCFILE was not set. Aborting" | indent

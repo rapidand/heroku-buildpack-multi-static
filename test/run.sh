@@ -29,7 +29,16 @@ testBasicAppJSON() {
     assertTrue "sub/app.json and app.json differ" "cmp $temp_dir/build/sub/app.json $temp_dir/build/app.json"
 }
 
-testMissingProcfile() {
+testMissingProcfileEnv() {
+    temp_dir="$(mktemp -d "${SHUNIT_TMPDIR}/temp.XXXXX")"
+    mkdir -p "$temp_dir/"{build,cache,env}
+
+    if "$root/bin/compile" "$temp_dir/build" "$temp_dir/cache" "$temp_dir/env"; then
+	fail "compile should have failed"
+    fi
+}
+
+testMissingProcfileFile() {
     temp_dir="$(mktemp -d "${SHUNIT_TMPDIR}/temp.XXXXX")"
     mkdir -p "$temp_dir/"{build,cache,env}
 
