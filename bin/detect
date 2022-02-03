@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "Multi-procfile"
+echo "Multi-static.json"
 exit 0
